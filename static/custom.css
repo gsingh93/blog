@@ -1,0 +1,70 @@
+:root[color-theme="dark"] {
+    --header-background: #1d1d1d;
+    --header-font-color: #00ff00;
+
+    --link-color: #59ff6a;
+    --link-color-visited: #6bcbf1;
+
+    --code-background: #2a2727;
+    --code-font-color: #fdfdfd;
+
+    --footer-background: #2f333e;
+    --footer-font-color: #ffffff;
+    --footer-link-color: #ffcc5c;
+    --footer-link-color-visited: #ffcc5c;
+
+    --heading-color: #e8e8e8;
+}
+
+a:hover {
+    background: inherit !important;
+    text-decoration: underline;
+}
+
+.gblog-brand {
+    line-height: 0em;
+    font-size: 3rem;
+    font-family: monospace;
+}
+
+.gblog-post__meta {
+    justify-content: space-between;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+code {
+    overflow-x: auto;
+}
+
+/* Generic Prompt */
+.chroma .gp {
+    color: #999999 !important;
+    font-weight: bold;
+}
+
+/* Generic Output */
+.chroma .go {
+    color: #bcc2c7 !important;
+}
+
+/* macOS hides scrollbars by default, so we need to style it ourselves */
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 9px;
+    height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #555555;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: #777777;
+}
