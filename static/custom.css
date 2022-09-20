@@ -8,23 +8,32 @@
     --code-background: #2a2727;
     --code-font-color: #fdfdfd;
 
+    --body-font-color: #ffffff;
+
     --footer-background: #2f333e;
     --footer-font-color: #ffffff;
-    --footer-link-color: #ffcc5c;
-    --footer-link-color-visited: #ffcc5c;
+    --link-color-footer: #6bcbf1;
+    --footer-link-color: #6bcbf1;
+    --footer-link-color-visited: #6bcbf1;
 
-    --heading-color: #e8e8e8;
+    --heading-color: #ffffff;
 }
 
 a:hover {
     background: inherit !important;
-    text-decoration: underline;
 }
 
-.gblog-brand {
+.gblog-brand__title {
+    margin-top: -15px;
     line-height: 0em;
     font-size: 3rem;
+    font-weight: 400;
     font-family: monospace;
+}
+
+a.gblog-header__link:hover {
+    text-decoration: none;
+    color: var(--header-font-color);
 }
 
 .gblog-post__meta {
