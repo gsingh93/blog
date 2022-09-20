@@ -356,7 +356,7 @@ We haven't used the `MetaItem` argument of our `expand` function yet. A `MetaIte
 
 So if we wanted to parse a `MetaItem` that might like this: `#[extension(foo, bar = "str", list(list_item)]`, we could do it with the following code (only the new imports are included):
 
-```
+``` rust
 use syntax::ast::Lit_::LitStr;
 use syntax::ast::MetaItem_::{MetaWord, MetaList, MetaNameValue};
 

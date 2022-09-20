@@ -7,7 +7,7 @@ published: true
 tags: ['ctf', 'writeup', 'crypto', 'rsa']
 mathjax: true
 ---
-picoCTF 2017 was happening over the last two weeks, and while I didn't have time to play it, a friend messaged me asking for help on one of the "master" level problems. The problem was a fun cryptography problem related to RSA, and I heard that some people ended up solving the problem using brute force, so I decided to writeup my solution which doesn't require brute force. Note that there's nothing wrong with the brute force solution, and you probably would have solved the problem faster, but it's good practice to be able to do it with just number theory.
+picoCTF 2017 was happening over the last two weeks, and while I didn't have time to play it, a friend messaged me asking for help on one of the "master" level problems. The problem was a fun cryptography problem related to RSA, and I heard that some people ended up solving the problem using brute force, so I decided to writeup my solution which doesn't require brute force. There's nothing wrong with the brute force solution, and it probably would have solved the problem faster, but it's good practice to be able to do it with just number theory.
 
 <!-- more -->
 
@@ -23,7 +23,7 @@ Fermat's Little Theorem may be helpful.
 ```
 
 Here are the provided RSA parameters, as well as the encrypted message $c$:
-```
+```python
 e = 65537
 n = 551504906448961847141690415172108060028728303241409233555695098354559944134593608349928135804830998592132110248539199471080424828431558863560289446722435352638365009233192053427739540819371609958014315243749107802424381558044339319969305152016580632977089138029197496120537936093909331580951370236220987003013
 dp = 11830038111134559585647595089660079959437934096133759102294626765549623265660232459679672150751523484215314838435592395437758168739238085557609083462380613
@@ -64,7 +64,7 @@ $$a * p - b * n = a * p - b(p * q) = p(a - b * q) \equiv 0 \pmod p$$
 So taking our original expression $\bmod n$ preserves the factor of $p$ in the expression, so it's still a multiple of p.
 
 Thus, we can solve the problem in Sage as follows (note that the casts to `int`s are important in Sage):
-```
+```python
 sage: p = int(gcd(pow(2, e * dp, n) - 2, n)); p
 21882732364928750538091629675163778162621616902577425071608324988253617272412493782388559800841168348434069674472295196720416514385081750301694228136439127L
 sage: q = n / p; q

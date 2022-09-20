@@ -14,13 +14,14 @@ This is a writeup for `nightmare`, the day 23 challenge for the OverTheWire Adve
 ## Reversing the binary
 
 We can see that the binary is a 32-bit, stripped ARM executable
-```
+```console
 $ file nightmare
 nightmare: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.3, for GNU/Linux 3.2.0, BuildID[sha1]=2f19e67a3f64377e99e841f8fb84d708e4884367, stripped
 ```
 
 `checksec` shows the following:
-```
+```console
+$ checksec nightmare
 Arch:     arm-32-little
 RELRO:    No RELRO
 Stack:    Canary found
@@ -195,7 +196,7 @@ If you look at the implementation of `clear`, you'll see that we don't clear unt
 
 We call `read_size()` in `give()` to read an integer from standard input, here are the relevant lines:
 
-```
+```c
 if ( scanf("%15[^ \t.\n]%*c", nptr) )
 {
   result = strtol(nptr, 0, 10);
