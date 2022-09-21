@@ -208,7 +208,7 @@ if ( scanf("%15[^ \t.\n]%*c", nptr) )
 
 The code ensures that the integer is less than `0x2000`. However, `strtoul` accepts negative integers as input and returns a signed integer, so we can input `-1` here to bypass the check. In `give()`, this means we append `0xFFFFFFFF` to our base64 encoded string before storing it. When we call `get()`, we call `malloc()` using this size.
 
-What this means is that we can call `malloc` with whatever size we want. When you see this, you should be thinking about the [House of Force](https://github.com/shellphish/how2heap/blob/master/glibc_2.25/house_of_force.c).
+What this means is that we can call `malloc` with whatever size we want. When you see this, you should be thinking about the [House of Force](https://github.com/shellphish/how2heap/blob/931c03b81f9d841d99c3028590e39a64a4fb71c4/glibc_2.27/house_of_force.c).
 
 ## Bug 4: No null termination in `base64_decode()` leads to heap/libc pointer leak
 

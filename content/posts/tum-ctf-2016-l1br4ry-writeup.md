@@ -354,7 +354,7 @@ And you have a shell!
 
 The code to edit a book first sets the title and then calls `strtoul` on the rating, which is why we passed the rating in as '/bin/sh'. This means `strtoul('/bin/sh')` is called after we rewrite the `strtoul` GOT address, which means we effectively call `/bin/sh`.
 
-For the actual challenge, you needed to use a libc from Debian Jessie, which I found online. My full exploit can be found [here](https://github.com/samuraictf/writeups/blob/master/tum2016/l1br4ry/solve.py).
+For the actual challenge, you needed to use a libc from Debian Jessie, which I found online. My full exploit can be found [here](https://github.com/samuraictf/writeups/blob/master/2016/tum/l1br4ry/solve.py).
 
 # Tips
 
