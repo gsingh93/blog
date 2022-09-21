@@ -1,9 +1,7 @@
 ---
-layout: post
 title: "9447 CTF 2015: Search Engine Writeup"
 date: 2016-09-21 21:36:36 -0700
 comments: true
-published: true
 tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'fastbin']
 ---
 

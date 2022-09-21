@@ -1,9 +1,7 @@
 ---
-layout: post
 title: "How to write a display manager"
 date: 2015-01-21 14:06:49 -0400
 comments: true
-published: true
 tags: [display manager, linux, C]
 ---
 

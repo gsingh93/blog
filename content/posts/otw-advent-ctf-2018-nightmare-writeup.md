@@ -1,9 +1,7 @@
 ---
-layout: post
 title: "OTW Advent CTF 2018: nightmare Writeup"
 date: 2018-12-26 11:15:20 -0500
 comments: true
-published: true
 tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'house of force']
 ---
 

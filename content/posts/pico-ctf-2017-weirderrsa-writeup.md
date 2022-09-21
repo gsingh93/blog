@@ -1,9 +1,7 @@
 ---
-layout: post
 title: "picoCTF 2017 weirderRSA Writeup"
 date: 2017-04-09 22:00:00 -0700
 comments: true
-published: true
 tags: ['ctf', 'writeup', 'crypto', 'rsa']
 mathjax: true
 ---

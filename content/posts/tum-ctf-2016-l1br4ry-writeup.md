@@ -1,10 +1,8 @@
 ---
-layout: post
 title: "TUM CTF 2016: l1br4ry Writeup"
 date: 2016-10-01 22:16:53 -0700
 comments: true
-published: true
-tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'fastbin', 'pwndbg']
+tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'fastbin']
 ---
 
 This weekend was TUM CTF 2016, and while I didn't have much time to play, I did want to solve at least one problem. I ended up choosing `l1br4ry`, a 300 point pwnable problem that had zero solves at the time. I really enjoyed working on the challenge, and I ended up being the third person to solve the problem, so I decided to do a writeup on it.

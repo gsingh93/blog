@@ -1,9 +1,8 @@
 ---
-layout: post
 title: "Useful Git Tips"
 date: 2014-04-27 17:46:22 -0400
 comments: true
-published: true
+draft: true
 tags: ['git']
 ---
 

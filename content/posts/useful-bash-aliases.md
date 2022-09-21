@@ -1,9 +1,8 @@
 ---
-layout: post
 title: "Useful Bash Aliases"
 date: 2014-04-27 16:49:24 -0400
 comments: true
-published: true
+draft: true
 tags: ['linux', 'bash', 'aliases']
 ---
 
