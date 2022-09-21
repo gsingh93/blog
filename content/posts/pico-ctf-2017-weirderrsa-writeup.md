@@ -10,15 +10,12 @@ picoCTF 2017 was happening over the last two weeks, and while I didn't have time
 <!-- more -->
 
 Here was the problem description:
-```
-Another message encrypted with RSA. It looks like some parameters are missing. Can you still decrypt it?
-```
+> Another message encrypted with RSA. It looks like some parameters are missing. Can you still decrypt it?
+
 
 A few hints were provided:
-```
-Is there some way to create a multiple of p given the values you have?
-Fermat's Little Theorem may be helpful.
-```
+> Is there some way to create a multiple of p given the values you have?
+> Fermat's Little Theorem may be helpful.
 
 Here are the provided RSA parameters, as well as the encrypted message $c$:
 ```python

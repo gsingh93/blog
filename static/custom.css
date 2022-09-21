@@ -5,6 +5,9 @@
     --link-color: #59ff6a;
     --link-color-visited: #6bcbf1;
 
+    --background-color: #343a40;
+    --accent-color: #ffffff;
+
     --code-background: #2a2727;
     --code-font-color: #fdfdfd;
 
@@ -17,6 +20,12 @@
     --footer-link-color-visited: #6bcbf1;
 
     --heading-color: #ffffff;
+}
+
+blockquote {
+    background-color: #303030;
+    width: 90%;
+    margin-left: 10px !important;
 }
 
 @font-face {
