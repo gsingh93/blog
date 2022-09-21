@@ -5,7 +5,7 @@ comments: true
 tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'house of force']
 ---
 
-This is a writeup for `nightmare`, the day 23 challenge for the OverTheWire Advent CTF. The problem was a 350 point ARM exploitation challenge and had 8 solves by the end of the CTF. You can find the binary and the supplied libraries [here](https://drive.google.com/open?id=1QxjQ_r1TBz2z2nhq261_-q5YFUyWve2D). In short, my solution was to overwrite the top chunk size by getting another heap chunk to overlap it, followed by using the [House of Force](https://github.com/shellphish/how2heap/blob/master/glibc_2.25/house_of_force.c) exploitation technique to overwite a GOT pointer to point to `system`.
+This is a writeup for `nightmare`, the day 23 challenge for the OverTheWire Advent CTF. The problem was a 350 point ARM exploitation challenge and had 8 solves by the end of the CTF. You can find the binary and the supplied libraries [here](https://drive.google.com/open?id=1QxjQ_r1TBz2z2nhq261_-q5YFUyWve2D). In short, my solution was to overwrite the top chunk size by getting another heap chunk to overlap it, followed by using the [House of Force](https://github.com/shellphish/how2heap/blob/931c03b81f9d841d99c3028590e39a64a4fb71c4/glibc_2.27/house_of_force.c) exploitation technique to overwite a GOT pointer to point to `system`.
 
 <!--more-->
 
