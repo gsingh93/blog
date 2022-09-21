@@ -9,7 +9,7 @@ Whenever I come across some topic of piece or software I don't completely unders
 
 I'll be writing this in C, but the concepts apply to any language as long as the language you're using has all the necessary libraries. You can find my final code on [Github](https://github.com/gsingh93/display-manager/tree/tutorial) (this is the tutorial branch, which follows this tutorial more closely), and you might also find the [SLiM display manager](https://github.com/gsingh93/slim-display-manager) a useful reference as well. The SLiM website (which hosted the code) went down recently as the project is no longer maintained, so I've linked my mirror of the project above.
 
-<!-- more -->
+<!--more-->
 
 What is a Display Manager?
 -------------------------

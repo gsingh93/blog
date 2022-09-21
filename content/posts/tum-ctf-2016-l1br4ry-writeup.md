@@ -7,7 +7,7 @@ tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'fastbin']
 
 This weekend was TUM CTF 2016, and while I didn't have much time to play, I did want to solve at least one problem. I ended up choosing `l1br4ry`, a 300 point pwnable problem that had zero solves at the time. I really enjoyed working on the challenge, and I ended up being the third person to solve the problem, so I decided to do a writeup on it.
 
-<!-- more -->
+<!--more-->
 
 This is a heap exploit, so I highly recommend reading [sploitfun's glibc malloc article](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/) to understand the basics about how the glibc heap works. I'll be using a 64-bit Ubuntu 14.04 VM, specifically the one [here](https://github.com/gsingh93/ctf-vm). You can get the binary [here](https://github.com/samuraictf/writeups/blob/master/tum2016/l1br4ry/l1br4ry). This writeup will be fairly detailed, and I tend to cover not only how to solve the problem, but some approaches that didn't work along the way. If you don't care about any of that, you can find the full solution code [here](https://github.com/samuraictf/writeups/blob/master/tum2016/l1br4ry/solve.py).
 

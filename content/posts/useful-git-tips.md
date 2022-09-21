@@ -10,7 +10,7 @@ I've noticed that when it comes to Git tutorials, there's only the "Intro to Git
 
 Note that this tutorial requires basic knowledge of Git. That is, you should know what Git is, how to add, commit, and push changes, and the very basics of branches and merging.
 
-<!-- more -->
+<!--more-->
 
 ## Git Number
 

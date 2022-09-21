@@ -7,7 +7,7 @@ tags: ['ctf', 'writeup', 'binary', 'exploitation', 'heap', 'fastbin']
 
 I've been going through [how2heap](https://github.com/shellphish/how2heap) problems recently, and I really enjoyed solving search-engine from 9447 CTF 2015. This was a pretty complicated problem, but it was also a lot of fun so I'll be sharing a writeup of my solution below. I'd highly recommend going over [sploitfun's glibc malloc article](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/) and the [fastbin_dup_into_stack.c](https://github.com/shellphish/how2heap/blob/master/fastbin_dup_into_stack.c) example from how2heap before going through this writeup.
 
-<!-- more -->
+<!--more-->
 
 I'll be using a 64-bit Ubuntu 14.04 VM, specifically the one [here](https://github.com/gsingh93/ctf-vm). You can get the binary [here](https://github.com/ctfs/write-ups-2015/blob/master/9447-ctf-2015/exploitation/search-engine/search-bf61fbb8fa7212c814b2607a81a84adf)
 
