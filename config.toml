@@ -8,6 +8,8 @@ pygmentsUseClasses = true
 pygmentsCodeFences = true
 disablePathToLower = true
 
+disqusShortname = 'brodoyouevencode'
+
 [mediaTypes]
   [mediaTypes."application/atom+xml"]
     suffixes = ["xml"]
