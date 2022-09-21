@@ -19,6 +19,40 @@
     --heading-color: #ffffff;
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+
+.admonition-icon::before {
+    position: absolute;
+    font-size: 1.25rem;
+    font-family: 'Material Icons';
+    margin-left: -1.5rem;
+}
+
+.admonition {
+    font-style: normal;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border: 3px solid transparent;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.warning {
+    background-color: #fbe9e7;
+    border-left-color: #a52714;
+    color: #a52714;
+}
+
+.warning .admonition-icon::before {
+    content: "warning";
+}
+
 a:hover {
     background: inherit !important;
 }
