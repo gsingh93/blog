@@ -1,0 +1,6 @@
+---
+footer:
+  - name: Github
+    icon: gblog_github
+    ref: "https://github.com/gsingh93"
+    external: true
