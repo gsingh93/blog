@@ -15,7 +15,9 @@ Syntax extensions are a cool feature that allow you to modify the AST at compile
 
 Note that because syntax extensions are unstable, these plugins will only work on the nightly compiler (unless you use something like [rust-syntex](https://github.com/erickt/rust-syntex), which I haven't gotten a chance to try out). However, I still think learning how to use them now is worthwhile, as more people writing them will help them become stable faster, there will be more good feedback during the stabilization process, and because it's a lot of fun.
 
-The following information is valid as of 5/04/15 and Rust 1.0, and I'll do my best to keep it updated.
+{{< warning >}}
+The following information was valid as of Rust 1.0, and is likely no longer valid for the latest version of Rust.
+{{< /warning >}}
 
 ## Types of Syntax Extensions
 
