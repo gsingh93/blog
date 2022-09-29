@@ -35,6 +35,11 @@ blockquote {
   src: url(https://fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
 }
 
+@font-face {
+  font-family: 'Courier Prime';
+  src: url(/fonts/courierprime-regular.woff2) format('woff2');
+}
+
 .admonition-icon::before {
     position: absolute;
     font-size: 1.25rem;
@@ -78,7 +83,7 @@ a:hover {
     line-height: 0em;
     font-size: 3rem;
     font-weight: 400;
-    font-family: monospace;
+    font-family: 'Courier Prime', 'Courier', monospace;
 }
 
 a.gblog-header__link:hover {
