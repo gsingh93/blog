@@ -62,6 +62,13 @@ blockquote {
     content: "warning";
 }
 
+.gblog-toc, .gblog-toc ul {
+    font-weight: bold;
+    list-style-type: none;
+    margin-top: 2em;
+    padding: 0;
+}
+
 a:hover {
     background: inherit !important;
 }
