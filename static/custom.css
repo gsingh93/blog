@@ -98,7 +98,7 @@ a.gblog-header__link:hover {
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     color: var(--heading-color);
-    align-items: unset;
+    display: block;
 }
 
 code {
@@ -108,9 +108,6 @@ code {
 
 h1>code, h2>code, h3>code, h4>code, h5>code, h6>code {
     border-top: none !important;
-    padding: 0.1em 0.3em !important;
-    margin-left: 0.3em;
-    margin-right: 0.3em;
 }
 
 figure {
@@ -119,6 +116,10 @@ figure {
 
 figcaption {
     font-style: italic;
+}
+
+.gblog-post__anchor {
+    display: inline;
 }
 
 /* Generic Prompt */
