@@ -1,3 +1,6 @@
 [build]
 publish = "public"
 command = "make all"
+
+[build.environment]
+  HUGO_VERSION = "0.103.1"
