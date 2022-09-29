@@ -1,7 +1,7 @@
 #+title: DownUnderCTF 2022 just-in-kernel Writeup
 #+date: 2022-09-25T00:11:54-07:00
 #+draft: true
-#+tags: ctf writeup binary exploitation kernel ROP
+#+tags[]: ctf writeup binary exploitation kernel ROP
 
 =just-in-kernel= was a kernel exploitation problem in DownUnderCTF 2022, and had 11 solves by the end of the CTF. We were provided a kernel =bzImage=, an =initramfs.cpio.gz= file, a =launch.sh= script to launch the kernel in QEMU, and the following prompt:
 #+begin_quote
