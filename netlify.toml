@@ -4,3 +4,15 @@ command = "make all"
 
 [build.environment]
 HUGO_VERSION = "0.103.1"
+
+[[redirects]]
+from = "https://gulshansingh.com/*"
+to = "https:/gsgx.me/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://www.gulshansingh.com/*"
+to = "https:/gsgx.me/:splat"
+status = 301
+force = true
